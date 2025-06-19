@@ -27,7 +27,7 @@ jobs:
           mkdir -p ~/.aws
           pybritive configure tenant --tenant demo --no-prompt
           pybritive configure global --tenant demo --format json --no-prompt
-          pybritive configure update profile-aliases default "AWS Creative Profile - S3 Full Access"
+          pybritive configure update profile-aliases default "AWS/123750444551 (Sigma Stage)/AWS Creative Profile - S3 Full Access"
           cat << EOF > ~/.aws/credentials
           [default]
           credential_process=pybritive checkout default -m awscredentialprocess -P github-britive
