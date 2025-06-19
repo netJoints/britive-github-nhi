@@ -1,42 +1,41 @@
-name: Britive JIT Access
+name: List S3 Buckets via Britive
 
 on:
   workflow_dispatch:
 
 permissions:
-  id-token: write
   contents: read
+  id-token: write
 
 jobs:
-  request-jit-access:
+  list-s3:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Authenticate with Britive using OIDC
-        id: auth
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install pybritive
+        run: pip3 install pybritive
+
+      - name: Configure and Checkout Britive Profile
         run: |
-          echo "Requesting OIDC token from GitHub..."
-          OIDC_TOKEN=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN" \
-            https://token.actions.githubusercontent.com/.well-known/openid-configuration)
-          echo "OIDC Token: $OIDC_TOKEN"
+          mkdir -p ~/.aws
+          pybritive configure tenant --tenant demo --no-prompt
+          pybritive configure global --tenant demo --format json --no-prompt
+          pybritive configure update profile-aliases default "AWS Creative Profile - S3 Full Access"
+          cat << EOF > ~/.aws/credentials
+          [default]
+          credential_process=pybritive checkout default -m awscredentialprocess -P github-britive
+          EOF
+          aws sts get-caller-identity
 
-          echo "Authenticating with Britive..."
-          ACCESS_TOKEN=$(curl -s -X POST "$BRITIVE_API_URL/authn/oidc/token" \
-            -H "Content-Type: application/json" \
-            -d "{\"client_id\": \"$BRITIVE_CLIENT_ID\", \"id_token\": \"$OIDC_TOKEN\"}" | jq -r '.access_token')
-          echo "Access Token: $ACCESS_TOKEN"
+      - name: List S3 Buckets
+        run: aws s3 ls
 
-        env:
-          ACTIONS_ID_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRITIVE_API_URL: ${{ secrets.BRITIVE_API_URL }}
-          BRITIVE_CLIENT_ID: ${{ secrets.BRITIVE_CLIENT_ID }}
-
-      - name: Request JIT Access to Britive Profile
-        run: |
-          echo "Requesting JIT access to profile..."
-          curl -X POST "$BRITIVE_API_URL/profiles/<PROFILE_ID>/access" \
-            -H "Authorization: Bearer $ACCESS_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d '{}'
+      - name: Check In Britive Profile
+        run: pybritive checkin default -P github-britive
