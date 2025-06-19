@@ -1,0 +1,42 @@
+name: Britive JIT Access
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  request-jit-access:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Authenticate with Britive using OIDC
+        id: auth
+        run: |
+          echo "Requesting OIDC token from GitHub..."
+          OIDC_TOKEN=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN" \
+            https://token.actions.githubusercontent.com/.well-known/openid-configuration)
+          echo "OIDC Token: $OIDC_TOKEN"
+
+          echo "Authenticating with Britive..."
+          ACCESS_TOKEN=$(curl -s -X POST "$BRITIVE_API_URL/authn/oidc/token" \
+            -H "Content-Type: application/json" \
+            -d "{\"client_id\": \"$BRITIVE_CLIENT_ID\", \"id_token\": \"$OIDC_TOKEN\"}" | jq -r '.access_token')
+          echo "Access Token: $ACCESS_TOKEN"
+
+        env:
+          ACTIONS_ID_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRITIVE_API_URL: ${{ secrets.BRITIVE_API_URL }}
+          BRITIVE_CLIENT_ID: ${{ secrets.BRITIVE_CLIENT_ID }}
+
+      - name: Request JIT Access to Britive Profile
+        run: |
+          echo "Requesting JIT access to profile..."
+          curl -X POST "$BRITIVE_API_URL/profiles/<PROFILE_ID>/access" \
+            -H "Authorization: Bearer $ACCESS_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{}'
