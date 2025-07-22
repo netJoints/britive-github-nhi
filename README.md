@@ -38,6 +38,10 @@ In Britive UI, add GitHub as IdP:
 
 **`System Administration` → `Identity Management` → `Identity Providers`**
 
+<img width="802" height="1320" alt="image" src="https://github.com/user-attachments/assets/baf64710-5da5-4b29-ad43-3b6f4c8d3c36" />
+
+
+
 ## GitHub IdP Setting Explained
 
   * **Name**: `Github`
@@ -61,6 +65,10 @@ In Britive UI, add GitHub as IdP:
 # Configure GitHub as Service Identity (NHI) in Britive UI
 
 In Britive UI, configure the following in the GitHub OIDC federated subject attribute:
+
+<img width="1028" height="1418" alt="image" src="https://github.com/user-attachments/assets/ab3fcd56-f41f-473c-8b78-86a3c6b236a1" />
+
+
 
 ## Github OIDC Subject Explained
 
@@ -97,6 +105,9 @@ This is a **security control** to ensure that only trusted workflows (from a spe
 
 # Attach the Service Identity to Britive Profile’s Policy
 
+<img width="1028" height="1338" alt="image" src="https://github.com/user-attachments/assets/0851c0fd-7361-40d8-9cb8-e40c2b2cb473" />
+
+
 -----
 
 # Summary of GitHub OIDC Related Configuration in Britive UI
@@ -118,6 +129,10 @@ Following is the summary of what we have configured so far:
 The sample GitHub actions code is here:
 
 `https://github.com/netJoints/britive-github-nhi`
+
+<img width="1446" height="636" alt="image" src="https://github.com/user-attachments/assets/6de5a9af-bb53-4b3f-936b-e585e684371c" />
+
+
 
 ## Sample GitHub Actions Workflow code
 
@@ -163,6 +178,10 @@ Now run the GitHub Actions workflow manually (for testing it is manual, otherwis
 
 1.  Click on `Actions` menu item in the repo.
 
+
+<img width="1760" height="844" alt="image" src="https://github.com/user-attachments/assets/6c10a6a8-9e5b-4230-aecf-a8cae8f7e729" />
+
+
 2.  Click `Run workflow`.
 
 -----
@@ -171,7 +190,13 @@ Now run the GitHub Actions workflow manually (for testing it is manual, otherwis
 
 Following output shows the GitHub workflow execution steps.
 
+<img width="2186" height="1410" alt="image" src="https://github.com/user-attachments/assets/531c21a5-3a0c-49bb-858f-4eb64641a201" />
+
+
 Following output shows the List S3 bucket steps within the overall workflow showcasing the NHI accessing the S3 buckets with JIT and ZSP principles.
+
+<img width="2174" height="1428" alt="image" src="https://github.com/user-attachments/assets/86097e0c-f494-430a-a1e9-cb3e6543d237" />
+
 
 -----
 
@@ -180,6 +205,10 @@ Following output shows the List S3 bucket steps within the overall workflow show
 The following output showcases a Britive audit log entry that captures a "Profile Check Out Request" initiated by the service identity `shahzad-github-nhi`. The log provides comprehensive details, including the actor's identity, the target AWS application, and the AWS environment involved.
 
 It also highlights the **programmatic access type**, indicating automation via GitHub Actions. This level of detail demonstrates how **Britive audit logs provide full visibility into Non-Human Identities (NHI)** and the actions they perform, ensuring robust security and traceability in automated workflows.
+
+
+<img width="1424" height="870" alt="image" src="https://github.com/user-attachments/assets/29e2a1c8-7873-44b0-a3ad-951061a73c40" />
+
 
 -----
 
