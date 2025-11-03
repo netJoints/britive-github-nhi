@@ -1,6 +1,11 @@
-- name: Debug OIDC Token
-  run: |
-    echo "Requesting GitHub OIDC token..."
-    export TOKEN=$(curl -s -H "Authorization: Bearer $ACTIONS_ID_TOKEN" \
-      https://token.actions.githubusercontent.com/.well-known/openid-configuration)
-    echo "OIDC Token requested successfully"
+name: Test Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Hello
+        run: echo "✅ GitHub Actions YAML syntax works fine!"
