@@ -1,0 +1,31 @@
+name: List Britive Profiles
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write    # Required for OIDC
+  contents: read     # Allows workflow to read repo contents
+
+jobs:
+  list-britive-profiles:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install pybritive
+        run: pip install pybritive
+
+      - name: Configure Britive Tenant
+        run: |
+          pybritive configure tenant --tenant demo --no-prompt
+          pybritive configure global --tenant demo --format json --no-prompt
+
+      - name: List Britive Profiles
+        run: pybritive profiles list
