@@ -28,4 +28,4 @@ jobs:
           pybritive configure global --tenant demo --format json --no-prompt
 
       - name: List Britive Profiles
-        run: pybritive profiles list
+        run: pybritive ls profiles
