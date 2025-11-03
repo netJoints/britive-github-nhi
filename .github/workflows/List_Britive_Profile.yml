@@ -24,6 +24,7 @@ jobs:
 
       - name: Configure Britive Tenant
         run: |
+          pybritive configure tenant --tenant demo --no-prompt
           pybritive configure global --tenant demo --format json --no-prompt
 
       - name: List Britive Profiles
