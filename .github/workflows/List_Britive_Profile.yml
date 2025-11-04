@@ -28,4 +28,4 @@ jobs:
           pybritive configure global --tenant demo --format json --no-prompt
 
       - name: List Britive Profiles
-        run: pybritive ls profiles --federation-provider github
+        run: pybritive ls profiles --federation-provider github-britive  # or use -P
