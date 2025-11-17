@@ -1,1 +1,120 @@
-html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quarterly Financial Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f8f9fa;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #444;
+            padding-bottom: 10px;
+        }
+        .report-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: right;
+        }
+        th {
+            background: #f0f0f0;
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 0.85em;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Q4 2025 Financial Report</h1>
+
+    <div class="report-section">
+        <h2>Executive Summary</h2>
+        <p>
+            This report provides a high-level overview of the company's financial performance 
+            for Q4 2025. Any changes made to this financial report will automatically trigger 
+            the GitHub Actions workflow to sync the latest version with the S3 bucket.
+        </p>
+    </div>
+
+    <div class="report-section">
+        <h2>Revenue Breakdown</h2>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Amount (USD)</th>
+                <th>QoQ Change</th>
+            </tr>
+            <tr>
+                <td style="text-align:left;">Product Sales</td>
+                <td>$4,250,000</td>
+                <td>+12%</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;">Cloud Services</td>
+                <td>$2,980,000</td>
+                <td>+8%</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;">Support & Maintenance</td>
+                <td>$745,000</td>
+                <td>+3%</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="report-section">
+        <h2>Expense Overview</h2>
+        <table>
+            <tr>
+                <th>Expense Type</th>
+                <th>Amount (USD)</th>
+                <th>QoQ Change</th>
+            </tr>
+            <tr>
+                <td style="text-align:left;">Operational Costs</td>
+                <td>$1,960,000</td>
+                <td>+6%</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;">R&amp;D</td>
+                <td>$1,320,000</td>
+                <td>+4%</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;">Sales & Marketing</td>
+                <td>$900,000</td>
+                <td>-2%</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="report-section">
+        <h2>Net Result</h2>
+        <p><strong>Net Profit:</strong> <span style="color:green;">$1,795,000</span></p>
+        <p><strong>Profit Margin:</strong> 19.4%</p>
+    </div>
+
+    <div class="footer">
+        Last updated: <strong><!-- Your demo can update this manually for realism --> February 2025</strong><br>
+        Any modification to this file will automatically update or sync the financial report via GitHub Actions.
+    </div>
+</body>
+</html>
