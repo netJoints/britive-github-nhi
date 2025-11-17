@@ -1,12 +1,12 @@
 name: List S3 Buckets via Britive
 
 on:
-  workflow_dispatch:        # keep manual trigger
+  workflow_dispatch:                     # keep manual trigger as an option too
   push:
     branches:
-      - main           # change if your repo uses a different default branch
+      - main                             # change if your repo uses a different default branch
     paths:
-      - "financial_report.html"   # workflow runs ONLY when this file changes
+      - "public/financial_report.html"   # workflow triggers when this file changes
 
 permissions:
   contents: read
