@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quarterly Financial Report</title>
+    <!-- Google Fonts for a modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            margin: 0;
+            padding: 0;
+            color: #22223b;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 6px 32px rgba(60, 72, 88, 0.12);
+            padding: 32px 40px;
+        }
+        h1, h2, h3 {
+            color: #3a5a40;
+            margin-top: 0;
+        }
+        h1 {
+            font-size: 2.5em;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 0.5em;
+        }
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 0.5em;
+            border-bottom: 2px solid #a3b18a;
+            padding-bottom: 0.2em;
+        }
+        h3 {
+            font-size: 1.2em;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            color: #588157;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5em;
+            background: #f0efeb;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(60, 72, 88, 0.07);
+        }
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+        }
+        th {
+            background: linear-gradient(90deg, #588157 60%, #a3b18a 100%);
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        tr:nth-child(even) td {
+            background: #e9edc9;
+        }
+        tr:nth-child(odd) td {
+            background: #f0efeb;
+        }
+        .net-result {
+            background: linear-gradient(90deg, #f9c74f 0%, #90be6d 100%);
+            color: #22223b;
+            padding: 18px 24px;
+            border-radius: 12px;
+            font-size: 1.2em;
+            margin-bottom: 1em;
+            box-shadow: 0 2px 8px rgba(60, 72, 88, 0.07);
+        }
+        .update-info {
+            font-size: 0.95em;
+            color: #6c757d;
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quarterly Financial Report</h1>
+        <h2>2025 Financial Report</h2>
+        <!-- TradingView Ticker Tape Widget -->
+        <div class="tradingview-widget-container" style="margin-bottom:24px;">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+          {
+            "symbols": [
+              { "proName": "NASDAQ:CSCO", "title": "Cisco" },
+              { "proName": "NASDAQ:AVGO", "title": "Broadcom" },
+              { "proName": "FOREXCOM:SPXUSD", "title": "S&P 500" },
+              { "proName": "NYSE:UL", "title": "Unilever (Ben & Jerry's)" },
+              { "proName": "NASDAQ:AMZN", "title": "Amazon" },
+              { "proName": "NASDAQ:MSFT", "title": "Microsoft" },
+              { "proName": "NASDAQ:ZS", "title": "Zscaler" }
+            ],
+            "colorTheme": "light",
+            "isTransparent": false,
+            "displayMode": "adaptive",
+            "locale": "en"
+          }
+          </script>
+        </div>
+
+        <h3>Executive Summary</h3>
+        <p>
+            This report provides a high-level overview of the company's financial performance for Q4 2025.<br>
+            Any changes made to this financial report will automatically trigger the GitHub Actions workflow to sync the latest version with the S3 bucket.
+        </p>
+        <h3>Revenue Breakdown</h3>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Amount (USD)</th>
+                <th>QoQ Change</th>
+            </tr>
+            <tr>
+                <td>Product Sales</td>
+                <td style="color:#43aa8b;font-weight:700;">$5,250,000</td>
+                <td style="color:#43aa8b;">+12%</td>
+            </tr>
+            <tr>
+                <td>Cloud Services</td>
+                <td style="color:#577590;font-weight:700;">$2,980,000</td>
+                <td style="color:#577590;">+8%</td>
+            </tr>
+            <tr>
+                <td>Support & Maintenance</td>
+                <td style="color:#f94144;font-weight:700;">$745,000</td>
+                <td style="color:#f94144;">+3%</td>
+            </tr>
+        </table>
+        <h3>Expense Overview</h3>
+        <table>
+            <tr>
+                <th>Expense Type</th>
+                <th>Amount (USD)</th>
+                <th>QoQ Change</th>
+            </tr>
+            <tr>
+                <td>Operational Costs</td>
+                <td style="color:#f3722c;font-weight:700;">$1,960,000</td>
+                <td style="color:#f3722c;">+6%</td>
+            </tr>
+            <tr>
+                <td>R&amp;D</td>
+                <td style="color:#277da1;font-weight:700;">$1,320,000</td>
+                <td style="color:#277da1;">+4%</td>
+            </tr>
+            <tr>
+                <td>Sales & Marketing</td>
+                <td style="color:#90be6d;font-weight:700;">$900,000</td>
+                <td style="color:#90be6d;">-2%</td>
+            </tr>
+        </table>
+        <div class="net-result">
+            <strong>Net Profit:</strong> $1,795,000<br>
+            <strong>Profit Margin:</strong> 19.4%
+        </div>
+        <div class="update-info">
+            Last updated: February 2025<br>
+            Any modification to this file will automatically update or sync the financial report via GitHub Actions.
+        </div>
+    </div>
+</body>
+</html>
