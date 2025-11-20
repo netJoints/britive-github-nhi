@@ -1,11 +1,11 @@
-name: Deploy to S3 via Britive
+name: Deploy to S3 via Britive ZSP Model
 on:
-  workflow_dispatch:                     # keep manual trigger as an option too
+  workflow_dispatch:
   push:
     branches:
-      - main                             # change if your repo uses a different default branch
+      - main
     paths:
-      - "public/index.html"              # workflow triggers when this file changes
+      - "public/index.html"
 
 permissions:
   contents: read
@@ -40,10 +40,36 @@ jobs:
           EOF
           aws sts get-caller-identity
 
+      - name: Configure Bucket for Public Access
+        run: |
+          # Disable Block Public Access settings
+          aws s3api put-public-access-block \
+            --bucket app-files-devops \
+            --public-access-block-configuration \
+            "BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false"
+          
+          # Apply bucket policy for public read access
+          cat > bucket-policy.json << 'EOF'
+          {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Sid": "PublicReadGetObject",
+                "Effect": "Allow",
+                "Principal": "*",
+                "Action": "s3:GetObject",
+                "Resource": "arn:aws:s3:::app-files-devops/*"
+              }
+            ]
+          }
+          EOF
+          aws s3api put-bucket-policy --bucket app-files-devops --policy file://bucket-policy.json
+
       - name: Upload index.html to S3
         run: |
-          aws s3 cp public/index.html s3://app-files-devops/index.html
+          aws s3 cp public/index.html s3://app-files-devops/index.html --acl public-read
           echo "Successfully uploaded index.html to s3://app-files-devops"
+          echo "Website URL: http://app-files-devops.s3-website.us-east-2.amazonaws.com"
 
       - name: Check In Britive Profile
         if: always()
