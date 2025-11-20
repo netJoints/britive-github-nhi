@@ -1,5 +1,4 @@
-name: List S3 Buckets via Britive
-
+name: Deploy to S3 via Britive
 on:
   workflow_dispatch:                     # keep manual trigger as an option too
   push:
@@ -13,7 +12,7 @@ permissions:
   id-token: write
 
 jobs:
-  list-s3:
+  deploy-to-s3:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -24,8 +23,10 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Install pybritive
-        run: pip3 install pybritive
+      - name: Install pybritive and AWS CLI
+        run: |
+          pip3 install pybritive
+          pip3 install awscli
 
       - name: Configure and Checkout Britive Profile
         run: |
@@ -39,8 +40,11 @@ jobs:
           EOF
           aws sts get-caller-identity
 
-      - name: List S3 Buckets
-        run: aws s3 ls
+      - name: Upload index.html to S3
+        run: |
+          aws s3 cp public/index.html s3://app-files-devops/index.html
+          echo "Successfully uploaded index.html to s3://app-files-devops"
 
       - name: Check In Britive Profile
+        if: always()
         run: pybritive checkin default -P github-britive
