@@ -1,4 +1,4 @@
-name: Deploy to S3 via Britive ZSP Model
+name: Deploy to S3 via Britive
 on:
   workflow_dispatch:
   push:
@@ -67,7 +67,7 @@ jobs:
 
       - name: Upload index.html to S3
         run: |
-          aws s3 cp public/index.html s3://app-files-devops/index.html --acl public-read
+          aws s3 cp public/index.html s3://app-files-devops/index.html
           echo "Successfully uploaded index.html to s3://app-files-devops"
           echo "Website URL: http://app-files-devops.s3-website.us-east-2.amazonaws.com"
 
