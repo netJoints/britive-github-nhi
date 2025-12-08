@@ -1,4 +1,4 @@
-name: Deploy to S3 via Britive
+name: Update Financial Report to S3 via Britive
 on:
   workflow_dispatch:
   push:
@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 jobs:
-  deploy-to-s3:
+  deploy-financial-report-to-s3:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -23,12 +23,12 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Install pybritive and AWS CLI
+      - name: Configure pybritive and AWS CLI
         run: |
           pip3 install pybritive
           pip3 install awscli
 
-      - name: Configure and Checkout Britive Profile
+      - name: Configure and Checkout Britive JIT Profile
         run: |
           mkdir -p ~/.aws
           pybritive configure tenant --tenant demo --no-prompt
@@ -40,7 +40,7 @@ jobs:
           EOF
           aws sts get-caller-identity
 
-      - name: Configure Bucket for Public Access
+      - name: Configure S3 Bucket for JIT Access
         run: |
           # Disable Block Public Access settings
           aws s3api put-public-access-block \
@@ -65,12 +65,12 @@ jobs:
           EOF
           aws s3api put-bucket-policy --bucket app-files-devops --policy file://bucket-policy.json
 
-      - name: Upload index.html to S3
+      - name: Upload index.html to S3 using JIT Creds
         run: |
           aws s3 cp public/index.html s3://app-files-devops/index.html
           echo "Successfully uploaded index.html to s3://app-files-devops"
           echo "Website URL: http://app-files-devops.s3-website.us-east-2.amazonaws.com"
 
-      - name: Check In Britive Profile
+      - name: Check In Britive Profile Revoke JIT Access
         if: always()
         run: pybritive checkin default -P github-britive
