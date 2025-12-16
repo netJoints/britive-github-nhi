@@ -1,3 +1,8 @@
+# Credits
+
+This project was first published as a blog on Britive website. 
+https://www.britive.com/resource/blog/getting-started-guide-britive-oidc-integration 
+
 # Problem Statement
 
 In today's hyper-connected enterprise, the business landscape is no longer solely dominated by human interactions. We live in a world where **Non-Human Identities (NHIs)** such as automated scripts, service accounts, IoT devices, and increasingly, Agentic AI systems, are autonomously accessing business-critical applications and performing essential functions.
